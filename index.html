@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <title>Unsere Bücher</title>
+  <meta name="description" content="Unsere digitale Kinderbuch-Bibliothek">
+  <meta name="theme-color" content="#d6eaf3">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Bücher">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="format-detection" content="telephone=no">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="preload" href="fonts/fraunces-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- 1) Splashscreen -->
+  <div id="splash" class="splash" aria-hidden="true">
+    <div class="loader-book">
+      <span class="lb-left"></span><span class="lb-right"></span><span class="lb-turn"></span>
+    </div>
+    <p class="splash-title">Unsere Bücher</p>
+    <p class="splash-note"></p>
+  </div>
+
+  <!-- 2) Bücherwand -->
+  <main id="library" class="library" hidden>
+    <header class="lib-head">
+      <h1 id="lib-title" class="lib-title">Unsere Bücher</h1>
+    </header>
+    <div id="shelf" class="shelf"></div>
+    <div id="lib-message" class="lib-message" hidden></div>
+  </main>
+
+  <!-- 3) Lesemodus -->
+  <section id="reader" class="reader" hidden aria-label="Buch">
+    <div id="reader-area" class="reader-area">
+      <div id="book-sizer" class="book-sizer"></div>
+    </div>
+
+    <!-- Versteckter Zurück-Button: 4× innerhalb von 3 Sekunden antippen -->
+    <button id="reader-exit" class="reader-exit" type="button" aria-label="Zurück zur Bücherwand" data-taps="0">
+      <span class="reader-exit-dot"></span>
+    </button>
+
+    <div id="reader-loading" class="reader-loading" hidden>
+      <div class="loader-book loader-book--dark">
+        <span class="lb-left"></span><span class="lb-right"></span><span class="lb-turn"></span>
+      </div>
+    </div>
+
+    <div id="reader-error" class="reader-error" hidden>
+      <p>Dieses Buch konnte gerade nicht geöffnet werden.</p>
+      <button id="reader-retry" class="btn-soft" type="button">Nochmal versuchen</button>
+      <button id="reader-back" class="btn-link" type="button">Zurück zu den Büchern</button>
+    </div>
+  </section>
+
+  <noscript>Bitte JavaScript aktivieren.</noscript>
+
+  <script>
+    // Per Doppelklick geöffnet (file://)? Dann blockiert der Browser JS-Module.
+    if (location.protocol === "file:") {
+      document.addEventListener("DOMContentLoaded", function () {
+        var s = document.getElementById("splash");
+        s.querySelector(".splash-note").textContent =
+          "Die App läuft nicht per Doppelklick auf index.html. Bitte über GitHub Pages öffnen (siehe README, Schritt 6).";
+        s.classList.add("has-note");
+      });
+    }
+  </script>
+  <script src="vendor/page-flip/page-flip.browser.js" defer></script>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
