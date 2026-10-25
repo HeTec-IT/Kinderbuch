@@ -156,7 +156,9 @@ function setupAdminTrigger() {
 let hintTimer = null;
 let guardOn = true;
 const endBtn = el("button", { class: "leave-end", type: "button", text: "Beenden" });
+const closeBtn = el("button", { class: "leave-x", type: "button", "aria-label": "Schließen", text: "×" });
 const leaveHint = el("div", { class: "leave-hint", role: "status", "aria-live": "polite", hidden: true }, [
+  closeBtn,
   el("strong", { text: "Hoppla!" }),
   el("span", { class: "leave-text", text: "Hier geht es nur mit Mama oder Papa weiter." }),
   endBtn
@@ -176,8 +178,10 @@ function showLeaveHint() {
   leaveHint.classList.remove("is-out");
   void leaveHint.offsetWidth;
   clearTimeout(hintTimer);
-  hintTimer = setTimeout(hideLeaveHint, 8000);
+  hintTimer = setTimeout(hideLeaveHint, 12000);
 }
+
+closeBtn.addEventListener("click", () => { clearTimeout(hintTimer); hideLeaveHint(); });
 
 endBtn.addEventListener("click", () => {
   guardOn = false;

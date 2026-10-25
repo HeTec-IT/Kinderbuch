@@ -66,7 +66,7 @@ Das Backup ist eine normale **ZIP-Datei** (`Kinderbuch-Backup-JJJJ-MM-TT.zip`) m
 3. Funktioniert auch auf einem anderen iPad oder einer frischen Installation.
 
 ### 8. App-Updates
-Neue Dateien auf GitHub hochladen und in `service-worker.js` die Zeile `const VERSION = "2.0.5"` erhöhen. Die App aktualisiert sich beim übernächsten Start. **Deine Bücher bleiben dabei immer erhalten.** Updates fassen die Datenbank nicht an.
+Neue Dateien auf GitHub hochladen und in `service-worker.js` die Zeile `const VERSION = "2.0.6"` erhöhen. Die App aktualisiert sich beim übernächsten Start. **Deine Bücher bleiben dabei immer erhalten.** Updates fassen die Datenbank nicht an.
 
 ---
 
