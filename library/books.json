@@ -61,6 +61,21 @@
       "pageHeight": 2304
     },
     {
+      "id": "repo-lio-papa-ist-auch-da",
+      "dir": "lio-papa-ist-auch-da",
+      "title": "Lio – Papa ist auch da",
+      "subtitle": "",
+      "category": "",
+      "order": 4.5,
+      "rev": 1,
+      "pages": 20,
+      "pageAspect": 1,
+      "layout": "spread",
+      "showCover": false,
+      "pageWidth": 2304,
+      "pageHeight": 2304
+    },
+    {
       "id": "repo-superheld-lio-und-papa",
       "dir": "superheld-lio-und-papa",
       "title": "Superheld Lio und Papa",
