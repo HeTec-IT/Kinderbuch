@@ -20,6 +20,8 @@ export class SwipeFlip {
     this.surface = surface;
     this.getPf = getPageFlip;
     this.ignore = opts.ignore || [];
+    this.isReady = opts.isReady || (() => true);
+    this.warm = opts.warm || (() => {});
     this.pointers = new Set();
     this.g = null;
     this.busy = false;
@@ -97,6 +99,7 @@ export class SwipeFlip {
     const pf = this.getPf();
     if (!pf || pf.getState() !== "read") return;
     try { this.surface.setPointerCapture(e.pointerId); } catch (_) { /* egal */ }
+    try { this.warm(); } catch (_) { /* egal */ }
     this.g = {
       id: e.pointerId,
       x0: e.clientX,
@@ -124,6 +127,7 @@ export class SwipeFlip {
       if (Math.abs(dx) < Math.abs(dy) * 1.2) { g.dead = true; return; }
       const dir = dx < 0 ? "next" : "prev";
       if (pf.getState() !== "read" || !this.canFlip(pf, dir)) { g.dead = true; return; }
+      if (!this.isReady(dir)) { g.dead = true; return; } // Bilder noch nicht bereit → nicht blättern
       const rect = pf.getRender().getRect();
       const block = pf.getUI().getDistElement().getBoundingClientRect();
       const yInBook = g.y0 - block.top - rect.top;

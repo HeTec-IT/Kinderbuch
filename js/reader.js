@@ -8,7 +8,7 @@ import { el, exitFullscreen } from "./util.js";
 
 /* Wie viele Seiten rund um die aktuelle Seite im Speicher gehalten werden */
 const KEEP_BEHIND = 3;
-const KEEP_AHEAD = 4;
+const KEEP_AHEAD = 5;
 
 /* ---------------- Seitenquelle: Bilder aus der lokalen Datenbank ---------------- */
 
@@ -61,7 +61,7 @@ export class Reader {
     this.token = 0;
     this.isOpen = false;
 
-    this.swipe = new SwipeFlip(root, () => this.pf, { ignore: [exitBtn, error] });
+    this.swipe = new SwipeFlip(root, () => this.pf, { ignore: [exitBtn, error], isReady: (d) => this.isReady(d), warm: () => this.warm() });
     this.swipe.enabled = false;
 
     this._setupExit();
@@ -188,7 +188,8 @@ export class Reader {
     const twoH = Math.min(H, W / (2 * a));
     const oneH = Math.min(H, W / a);
     // Doppelseite nur, wenn sie nicht deutlich kleiner wird als eine Einzelseite
-    const two = n > 1 && twoH >= 0.68 * oneH;
+    // Bücher mit Doppelseiten (links Bild, rechts Text) werden IMMER als Doppelseite gezeigt
+    const two = n > 1 && (src.book.layout === "spread" || twoH >= 0.68 * oneH);
     // Buchgefühl bleibt (Doppelseite mit Rand), aber oben/unten wird die Seite etwas gestreckt
     const natH = two ? twoH : oneH;
     const pageH = Math.max(50, Math.floor(Math.min(H, natH * STRETCH_MAX)));
@@ -244,6 +245,35 @@ export class Reader {
     this._updateWindow(Math.min(startPage, n - 1));
   }
 
+  /** Seiten, die beim Blättern in Richtung dir sichtbar werden */
+  _targetIndices(dir) {
+    const n = this.source ? this.source.count : 0;
+    const c = this.pf ? this.pf.getCurrentPageIndex() : 0;
+    const list = dir === "next" ? [c + 1, c + 2, c + 3] : [c - 1, c - 2, c - 3];
+    return list.filter((i) => i >= 0 && i < n);
+  }
+
+  /** Sind alle Bilder für das Umblättern bereit? (sonst nicht blättern → kein weißes Flackern) */
+  isReady(dir) {
+    const idx = this._targetIndices(dir);
+    let ok = true;
+    for (const i of idx) {
+      const e = this.imgs.get(i);
+      if (!e || !e.done) { ok = false; this._ensure(i).catch(() => {}); }
+    }
+    return ok;
+  }
+
+  /** Beim Auflegen des Fingers: Bilder der Nachbarseiten schon mal dekodieren */
+  warm() {
+    for (const dir of ["next", "prev"]) {
+      for (const i of this._targetIndices(dir)) {
+        const e = this.imgs.get(i);
+        if (e && e.done && e.img.decode) e.img.decode().catch(() => {});
+      }
+    }
+  }
+
   _visibleIndices(center) {
     const n = this.source ? this.source.count : 0;
     return [center, center + 1].filter((i) => i >= 0 && i < n);
@@ -261,7 +291,7 @@ export class Reader {
         this.source.release(i);
       }
     }
-    const order = [0, 1, 2, -1, 3, 4, -2, -3];
+    const order = [0, 1, 2, 3, -1, 4, 5, -2, -3];
     for (const d of order) {
       const i = center + d;
       if (i >= 0 && i < n) this._ensure(i).catch(() => {});
@@ -279,8 +309,8 @@ export class Reader {
     img.className = "page-img";
     img.alt = "";
     img.draggable = false;
-    img.decoding = "async";
-    const entry = { img, ready: null };
+    img.decoding = "sync"; // Seite erst zeigen, wenn das Bild fertig dekodiert ist (kein weißes Aufblitzen)
+    const entry = { img, ready: null, done: false };
     entry.ready = (async () => {
       const url = await this.source.getUrl(i);
       if (this.imgs.get(i) !== entry) return;
@@ -290,6 +320,7 @@ export class Reader {
         img.src = url;
       });
       try { await img.decode(); } catch (_) { /* bereits geladen – reicht */ }
+      entry.done = true;
     })();
     entry.ready.catch(() => {
       if (this.imgs.get(i) === entry) {
