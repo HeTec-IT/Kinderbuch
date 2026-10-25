@@ -179,11 +179,12 @@ export class Reader {
     if (W < 20 || H < 20) return;
     const a = src.aspect;
     const n = src.count;
-    // Bildschirm komplett füllen (kein Rand): Seite so groß wie der Platz, Bild wird zugeschnitten
-    const screenA = W / H;
-    const two = n > 1 && Math.abs(Math.log(screenA / (2 * a))) < Math.abs(Math.log(screenA / a));
-    const pageH = Math.max(50, Math.floor(H));
-    const pageW = Math.max(30, Math.floor(two ? W / 2 : W));
+    const twoH = Math.min(H, W / (2 * a));
+    const oneH = Math.min(H, W / a);
+    // Doppelseite nur, wenn sie nicht deutlich kleiner wird als eine Einzelseite
+    const two = n > 1 && twoH >= 0.72 * oneH;
+    const pageH = Math.max(50, Math.floor(two ? twoH : oneH));
+    const pageW = Math.max(30, Math.floor(pageH * a));
     const key = `${pageW}x${pageH}x${two}`;
     if (!force && key === this.key) return;
     this.key = key;
