@@ -188,7 +188,7 @@ export class Reader {
     const twoH = Math.min(H, W / (2 * a));
     const oneH = Math.min(H, W / a);
     // Doppelseite nur, wenn sie nicht deutlich kleiner wird als eine Einzelseite
-    const two = n > 1 && twoH >= 0.72 * oneH;
+    const two = n > 1 && twoH >= 0.68 * oneH;
     // Buchgefühl bleibt (Doppelseite mit Rand), aber oben/unten wird die Seite etwas gestreckt
     const natH = two ? twoH : oneH;
     const pageH = Math.max(50, Math.floor(Math.min(H, natH * STRETCH_MAX)));

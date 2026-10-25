@@ -4,6 +4,7 @@
 import { COVER_WIDTH, COVER_QUALITY } from "./config.js";
 import { el, formatBytes } from "./util.js";
 import { getBooks, updateBook, deleteBook, getSetting, setSetting, getStorageStats } from "./db.js";
+import { markRepoBookDeleted } from "./library-sync.js";
 import { importPdf } from "./importer.js";
 import { canvasToBlob } from "./pdf-tools.js";
 import {
@@ -406,7 +407,7 @@ function renderRow(book, index, books, bytes) {
         { key: "yes", label: "Löschen", danger: true }, { key: "no", label: "Abbrechen", primary: true }
       ]);
       if (a !== "yes") return;
-      try { await deleteBook(book.id); } catch (_) { await ask("Löschen", "Das Buch konnte nicht gelöscht werden.", OK); }
+      try { await deleteBook(book.id); if (book.source === "repo") await markRepoBookDeleted(book.id); } catch (_) { await ask("Löschen", "Das Buch konnte nicht gelöscht werden.", OK); }
       await refreshAll();
     }
   });

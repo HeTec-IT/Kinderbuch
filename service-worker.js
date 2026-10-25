@@ -2,7 +2,7 @@
    Bücher liegen in IndexedDB und werden NICHT hier gespeichert (keine doppelte Speicherung).
    Updates löschen niemals Bücher: dieser Worker fasst IndexedDB nicht an. */
 
-const VERSION = "2.0.7";                 // bei jeder neuen App-Version erhöhen
+const VERSION = "2.0.8";                 // bei jeder neuen App-Version erhöhen
 const SHELL_CACHE = "kb-shell-" + VERSION;
 
 const SHELL_FILES = [
@@ -23,6 +23,7 @@ const SHELL_FILES = [
   "js/backup.js",
   "js/zip.js",
   "js/pin.js",
+  "js/library-sync.js",
   "vendor/page-flip/page-flip.browser.js",
   "vendor/pdfjs/pdf.min.js",
   "vendor/pdfjs/pdf.worker.min.js",
@@ -71,6 +72,7 @@ self.addEventListener("fetch", (event) => {
   if (req.method !== "GET" || req.headers.has("range")) return;
   const url = new URL(req.url);
   if (url.origin !== self.location.origin) return;   // nur eigene Dateien
+  if (url.pathname.includes("/library/")) return;    // Bücher-Bilder nicht doppelt cachen (liegen in der Datenbank)
   event.respondWith(staleWhileRevalidate(req, event));
 });
 

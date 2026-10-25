@@ -2,6 +2,7 @@
 import { APP_TITLE, ADMIN_TAPS, ADMIN_TAP_WINDOW_MS } from "./config.js";
 import { initDatabase, getBooks, cleanupOrphans, getSetting, setSetting } from "./db.js";
 import { requestPersistence } from "./storage.js";
+import { syncRepoLibrary } from "./library-sync.js";
 import { Reader } from "./reader.js";
 import { el, sleep, enterFullscreen, exitFullscreen } from "./util.js";
 
@@ -259,7 +260,10 @@ async function start() {
   setTimeout(() => splash.remove(), 500);
 
   // Aufräumen nur beim Start (dann läuft garantiert kein Import)
-  cleanupOrphans().catch(() => {});
+  cleanupOrphans().catch(() => {}).then(() => syncRepoLibrary({
+    onStart: () => { if (!shelf.children.length) showLibMessage("Bücher werden geladen …", false); },
+    onBook: () => refresh()
+  })).catch(() => {});
   cleanupLegacy();
   requestPersistence();
 }
