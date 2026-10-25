@@ -7,13 +7,13 @@
       "subtitle": "",
       "category": "",
       "order": 1,
-      "rev": 1,
+      "rev": 2,
       "pages": 19,
       "pageAspect": 0.6470588235294118,
       "layout": "spread",
       "showCover": true,
-      "pageWidth": 1491,
-      "pageHeight": 2304
+      "pageWidth": 1553,
+      "pageHeight": 2400
     },
     {
       "id": "repo-lio-kacki-abenteuer",
@@ -22,13 +22,13 @@
       "subtitle": "",
       "category": "",
       "order": 2,
-      "rev": 1,
+      "rev": 2,
       "pages": 50,
       "pageAspect": 1,
       "layout": "spread",
       "showCover": false,
-      "pageWidth": 2304,
-      "pageHeight": 2304
+      "pageWidth": 2400,
+      "pageHeight": 2400
     },
     {
       "id": "repo-lio-spielzeit",
@@ -37,13 +37,13 @@
       "subtitle": "",
       "category": "",
       "order": 3,
-      "rev": 1,
+      "rev": 2,
       "pages": 20,
       "pageAspect": 1,
       "layout": "spread",
       "showCover": false,
-      "pageWidth": 2304,
-      "pageHeight": 2304
+      "pageWidth": 2400,
+      "pageHeight": 2400
     },
     {
       "id": "repo-lio-gemuese-abenteuer",
@@ -52,13 +52,13 @@
       "subtitle": "",
       "category": "",
       "order": 4,
-      "rev": 1,
+      "rev": 2,
       "pages": 20,
       "pageAspect": 1,
       "layout": "spread",
       "showCover": false,
-      "pageWidth": 2304,
-      "pageHeight": 2304
+      "pageWidth": 2400,
+      "pageHeight": 2400
     },
     {
       "id": "repo-lio-papa-ist-auch-da",
@@ -67,13 +67,13 @@
       "subtitle": "",
       "category": "",
       "order": 4.5,
-      "rev": 1,
+      "rev": 2,
       "pages": 20,
       "pageAspect": 1,
       "layout": "spread",
       "showCover": false,
-      "pageWidth": 2304,
-      "pageHeight": 2304
+      "pageWidth": 2400,
+      "pageHeight": 2400
     },
     {
       "id": "repo-superheld-lio-und-papa",
@@ -82,13 +82,13 @@
       "subtitle": "",
       "category": "",
       "order": 5,
-      "rev": 1,
+      "rev": 2,
       "pages": 20,
       "pageAspect": 1,
       "layout": "spread",
       "showCover": false,
-      "pageWidth": 2304,
-      "pageHeight": 2304
+      "pageWidth": 2400,
+      "pageHeight": 2400
     },
     {
       "id": "repo-luan-wunderhaus",
@@ -97,13 +97,13 @@
       "subtitle": "",
       "category": "",
       "order": 6,
-      "rev": 1,
+      "rev": 2,
       "pages": 44,
       "pageAspect": 0.999999882407421,
       "layout": "spread",
       "showCover": false,
-      "pageWidth": 2304,
-      "pageHeight": 2304
+      "pageWidth": 2400,
+      "pageHeight": 2400
     }
   ]
 }

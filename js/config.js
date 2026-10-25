@@ -9,12 +9,12 @@ export const DB_NAME = "kinderbuch";
 export const DB_VERSION = 1;
 
 /* Seitenbilder beim Import: längste Kante in Pixeln (Retina-iPad-tauglich) */
-export const PAGE_IMAGE_LONG_SIDE = 2304;
-export const PAGE_IMAGE_QUALITY = 0.86;
+export const PAGE_IMAGE_LONG_SIDE = 2400;
+export const PAGE_IMAGE_QUALITY = 0.93;
 
 /* Coverbild für die Bücherwand */
 export const COVER_WIDTH = 720;
-export const COVER_QUALITY = 0.86;
+export const COVER_QUALITY = 0.9;
 
 /* Lesemodus */
 export const STRETCH_MAX = 1.44;      // Seiten dürfen oben/unten bis zu 44 % gestreckt werden (weniger Rand)
