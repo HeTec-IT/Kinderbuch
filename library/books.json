@@ -29,6 +29,51 @@
       "showCover": false,
       "pageWidth": 2304,
       "pageHeight": 2304
+    },
+    {
+      "id": "repo-lio-spielzeit",
+      "dir": "lio-spielzeit",
+      "title": "Lio und die große Spielzeit",
+      "subtitle": "",
+      "category": "",
+      "order": 3,
+      "rev": 1,
+      "pages": 20,
+      "pageAspect": 1,
+      "layout": "spread",
+      "showCover": false,
+      "pageWidth": 2304,
+      "pageHeight": 2304
+    },
+    {
+      "id": "repo-lio-gemuese-abenteuer",
+      "dir": "lio-gemuese-abenteuer",
+      "title": "Lio und das Gemüse-Abenteuer",
+      "subtitle": "",
+      "category": "",
+      "order": 4,
+      "rev": 1,
+      "pages": 20,
+      "pageAspect": 1,
+      "layout": "spread",
+      "showCover": false,
+      "pageWidth": 2304,
+      "pageHeight": 2304
+    },
+    {
+      "id": "repo-superheld-lio-und-papa",
+      "dir": "superheld-lio-und-papa",
+      "title": "Superheld Lio und Papa",
+      "subtitle": "",
+      "category": "",
+      "order": 5,
+      "rev": 1,
+      "pages": 20,
+      "pageAspect": 1,
+      "layout": "spread",
+      "showCover": false,
+      "pageWidth": 2304,
+      "pageHeight": 2304
     }
   ]
 }
