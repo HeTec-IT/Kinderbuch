@@ -89,6 +89,21 @@
       "showCover": false,
       "pageWidth": 2304,
       "pageHeight": 2304
+    },
+    {
+      "id": "repo-luan-wunderhaus",
+      "dir": "luan-wunderhaus",
+      "title": "Luan und das magische Wunderhaus",
+      "subtitle": "",
+      "category": "",
+      "order": 6,
+      "rev": 1,
+      "pages": 44,
+      "pageAspect": 0.999999882407421,
+      "layout": "spread",
+      "showCover": false,
+      "pageWidth": 2304,
+      "pageHeight": 2304
     }
   ]
 }
