@@ -3,7 +3,7 @@
    schnell und komplett offline. */
 import { SwipeFlip } from "./swipe-flip.js";
 import { getPage } from "./db.js";
-import { FLIP_TIME_MS, EXIT_TAPS, EXIT_TAP_WINDOW_MS } from "./config.js";
+import { FLIP_TIME_MS, STRETCH_MAX, EXIT_TAPS, EXIT_TAP_WINDOW_MS } from "./config.js";
 import { el, exitFullscreen } from "./util.js";
 
 /* Wie viele Seiten rund um die aktuelle Seite im Speicher gehalten werden */
@@ -71,7 +71,13 @@ export class Reader {
     let t = null;
     this.ro = new ResizeObserver(() => {
       clearTimeout(t);
-      t = setTimeout(() => this.isOpen && this.source && this.build(false), 120);
+      t = setTimeout(() => {
+        if (!this.isOpen || !this.source) return;
+        // kleine Schwankungen (Statusleiste, Meldungen, Vollbild-Wechsel) ignorieren → kein Flackern
+        const w = this.area.clientWidth, h = this.area.clientHeight;
+        if (this.lastW && Math.abs(w - this.lastW) < 40 && Math.abs(h - this.lastH) < 40) return;
+        this.build(false);
+      }, 350);
     });
     this.ro.observe(area);
 
@@ -183,11 +189,15 @@ export class Reader {
     const oneH = Math.min(H, W / a);
     // Doppelseite nur, wenn sie nicht deutlich kleiner wird als eine Einzelseite
     const two = n > 1 && twoH >= 0.72 * oneH;
-    const pageH = Math.max(50, Math.floor(two ? twoH : oneH));
-    const pageW = Math.max(30, Math.floor(pageH * a));
+    // Buchgefühl bleibt (Doppelseite mit Rand), aber oben/unten wird die Seite etwas gestreckt
+    const natH = two ? twoH : oneH;
+    const pageH = Math.max(50, Math.floor(Math.min(H, natH * STRETCH_MAX)));
+    const pageW = Math.max(30, Math.floor(natH * a));
     const key = `${pageW}x${pageH}x${two}`;
     if (!force && key === this.key) return;
     this.key = key;
+    this.lastW = W;
+    this.lastH = H;
 
     const startPage = this.pf ? this.pf.getCurrentPageIndex() : 0;
     if (this.pf) {

@@ -17,6 +17,7 @@ export const COVER_WIDTH = 720;
 export const COVER_QUALITY = 0.86;
 
 /* Lesemodus */
+export const STRETCH_MAX = 1.2;       // Seiten dürfen oben/unten bis zu 20 % gestreckt werden (weniger Rand)
 export const FLIP_TIME_MS = 750;      // Dauer der Umblätter-Animation
 export const EXIT_TAPS = 4;           // so oft muss der versteckte Zurück-Button getippt werden
 export const EXIT_TAP_WINDOW_MS = 3000;

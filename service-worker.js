@@ -2,7 +2,7 @@
    Bücher liegen in IndexedDB und werden NICHT hier gespeichert (keine doppelte Speicherung).
    Updates löschen niemals Bücher: dieser Worker fasst IndexedDB nicht an. */
 
-const VERSION = "2.0.6";                 // bei jeder neuen App-Version erhöhen
+const VERSION = "2.0.7";                 // bei jeder neuen App-Version erhöhen
 const SHELL_CACHE = "kb-shell-" + VERSION;
 
 const SHELL_FILES = [
