@@ -164,6 +164,35 @@
         20
       ],
       "ownCover": false
+    },
+    {
+      "id": "repo-lio-papa-ist-auch-da-pt",
+      "dir": "lio-papa-ist-auch-da-pt",
+      "base": "lio-papa-ist-auch-da",
+      "title": "Lio, o papai também está aqui!",
+      "subtitle": "",
+      "category": "Português",
+      "order": 104.5,
+      "rev": 1,
+      "pages": 20,
+      "pageAspect": 1,
+      "layout": "spread",
+      "showCover": false,
+      "pageWidth": 2400,
+      "pageHeight": 2400,
+      "own": [
+        2,
+        4,
+        6,
+        8,
+        10,
+        12,
+        14,
+        16,
+        18,
+        20
+      ],
+      "ownCover": false
     }
   ]
 }
