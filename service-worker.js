@@ -2,7 +2,7 @@
    Bücher liegen in IndexedDB und werden NICHT hier gespeichert (keine doppelte Speicherung).
    Updates löschen niemals Bücher: dieser Worker fasst IndexedDB nicht an. */
 
-const VERSION = "2.0.15";                 // bei jeder neuen App-Version erhöhen
+const VERSION = "2.0.16";                 // bei jeder neuen App-Version erhöhen
 const SHELL_CACHE = "kb-shell-" + VERSION;
 
 const SHELL_FILES = [
@@ -21,6 +21,7 @@ const SHELL_FILES = [
   "js/admin.js",
   "js/importer.js",
   "js/backup.js",
+  "js/pdf-export.js",
   "js/zip.js",
   "js/pin.js",
   "js/library-sync.js",

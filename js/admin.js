@@ -10,6 +10,7 @@ import { canvasToBlob } from "./pdf-tools.js";
 import {
   exportLibrary, inspectBackup, importLibrary, canShareFile, shareFile, downloadBlob
 } from "./backup.js";
+import { exportBookPdf } from "./pdf-export.js";
 import { requestPersistence, getStorageInfo } from "./storage.js";
 import { hasPin, setPin, removePin, verifyPin, lockSecondsLeft, validPinFormat } from "./pin.js";
 
@@ -399,6 +400,7 @@ function renderRow(book, index, books, bytes) {
   });
   const coverBtn = el("button", { class: "btn btn-quiet", type: "button", text: "Cover ändern", onclick: () => coverInput.click() });
   const exportBtn = el("button", { class: "btn btn-quiet", type: "button", text: "Buch exportieren", onclick: () => doExport([book.id], `„${book.title}“ wird gesichert`) });
+  const pdfBtn = el("button", { class: "btn btn-quiet", type: "button", text: "Als PDF speichern", onclick: () => doPdfExport(book) });
   const delBtn = el("button", {
     class: "btn btn-danger", type: "button", text: "Löschen",
     onclick: async () => {
@@ -425,7 +427,7 @@ function renderRow(book, index, books, bytes) {
     el("div", { class: "admin-row-actions" }, [
       el("label", { class: "switch" }, [active, el("span", { class: "switch-ui", "aria-hidden": "true" }), el("span", { class: "switch-label", text: "Sichtbar" })]),
       el("div", { class: "admin-order" }, [up, down]),
-      coverBtn, coverInput, exportBtn, delBtn
+      coverBtn, coverInput, pdfBtn, exportBtn, delBtn
     ])
   ]);
   return row;
@@ -573,7 +575,29 @@ async function doExport(bookIds, label) {
   }
 }
 
-function offerFile(blob, filename) {
+async function doPdfExport(book) {
+  if (busy) return;
+  busy = true;
+  const control = { cancelled: false };
+  const pm = progressModal(`„${book.title}“ wird als PDF vorbereitet`);
+  pm.onCancel(() => { control.cancelled = true; });
+  pm.update(0, "Wird zusammengestellt …");
+  try {
+    const res = await exportBookPdf(book.id, { control, onProgress: (p, t) => pm.update(p, t) });
+    pm.close();
+    await offerFile(res.blob, res.filename, { title: "PDF ist fertig", hint: "Auf dem iPad: „Speichern / Teilen“ → „In Dateien sichern“." });
+  } catch (err) {
+    pm.close();
+    if (!(err && err.kind === "cancel")) {
+      console.warn(err);
+      await ask("PDF nicht möglich", "Die PDF konnte nicht erstellt werden. Möglicherweise ist nicht genug Speicherplatz frei.", OK);
+    }
+  } finally {
+    busy = false;
+  }
+}
+
+function offerFile(blob, filename, { title = "Sicherung ist fertig", hint = "Auf dem iPad: „Speichern / Teilen“ → „In Dateien sichern“ → Google Drive." } = {}) {
   return new Promise((resolve) => {
     const buttons = [];
     if (canShareFile(blob, filename)) {
@@ -587,9 +611,9 @@ function offerFile(blob, filename) {
     }
     buttons.push(el("button", { class: "btn btn-quiet", type: "button", text: "Herunterladen", onclick: () => downloadBlob(blob, filename) }));
     const m = modal([
-      el("h3", { text: "Sicherung ist fertig" }),
+      el("h3", { text: title }),
       el("p", { class: "kb-modal-info", text: `${filename} · ${formatBytes(blob.size)}` }),
-      el("p", { class: "kb-modal-info", text: "Auf dem iPad: „Speichern / Teilen“ → „In Dateien sichern“ → Google Drive." }),
+      el("p", { class: "kb-modal-info", text: hint }),
       el("div", { class: "kb-modal-actions" }, [
         ...buttons,
         el("button", { class: "btn btn-quiet", type: "button", text: "Fertig", onclick: () => { m.close(); resolve(); } })
