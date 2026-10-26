@@ -193,6 +193,35 @@
         20
       ],
       "ownCover": false
+    },
+    {
+      "id": "repo-superheld-lio-und-papa-pt",
+      "dir": "superheld-lio-und-papa-pt",
+      "base": "superheld-lio-und-papa",
+      "title": "Superherói Lio e o Papai",
+      "subtitle": "",
+      "category": "Português",
+      "order": 105,
+      "rev": 1,
+      "pages": 20,
+      "pageAspect": 1,
+      "layout": "spread",
+      "showCover": false,
+      "pageWidth": 2400,
+      "pageHeight": 2400,
+      "own": [
+        2,
+        4,
+        6,
+        8,
+        10,
+        12,
+        14,
+        16,
+        18,
+        20
+      ],
+      "ownCover": false
     }
   ]
 }
