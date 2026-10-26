@@ -66,12 +66,14 @@ Das Backup ist eine normale **ZIP-Datei** (`Kinderbuch-Backup-JJJJ-MM-TT.zip`) m
 3. Funktioniert auch auf einem anderen iPad oder einer frischen Installation.
 
 ### 8. App-Updates
-Neue Dateien auf GitHub hochladen und in `service-worker.js` die Zeile `const VERSION = "2.0.12"` erhöhen. Die App aktualisiert sich beim übernächsten Start. **Deine Bücher bleiben dabei immer erhalten.** Updates fassen die Datenbank nicht an.
+Neue Dateien auf GitHub hochladen und in `service-worker.js` die Zeile `const VERSION = "2.0.13"` erhöhen. Die App aktualisiert sich beim übernächsten Start. **Deine Bücher bleiben dabei immer erhalten.** Updates fassen die Datenbank nicht an.
 
 ---
 
 ## Bücher im Repository
 Fertige Bücher liegen im Ordner `library/` (`books.json` + je Buch `cover.jpg`, `p001.jpg`, `p002.jpg` …). Die App lädt sie beim ersten Start mit Internet einmal aufs Gerät und zeigt sie danach auch offline. Weitere Bücher kannst du weiterhin im Elternbereich lokal hinzufügen. Ein Buch, das du im Elternbereich löschst, kommt nicht wieder. Neue Repo-Bücher einfach in `books.json` eintragen (neue `id`, `rev` erhöhen, wenn sich Bilder ändern).
+
+**Português (pt-BR):** Alle Bücher gibt es zusätzlich auf brasilianischem Portugiesisch (Regal „Português“). Die Fassungen heißen `…-pt`, enthalten nur die geänderten Seiten und holen den Rest über `base` aus dem deutschen Buch (spart Speicher).
 
 ## Verlassen-Schutz
 Wischt oder tippt dein Kind aus der App heraus (Zurück-Wischen vom Rand), bleibt die App offen und zeigt „Hoppla! Hier geht es nur mit Mama oder Papa weiter.“ mit einem kleinen **Beenden**-Knopf. **Beenden** schließt das Buch und schaltet den Schutz kurz aus. Danach schließt du die App mit der normalen iPad-Geste (von unten nach oben wischen). Eine Web-App kann sich auf dem iPad nicht selbst schließen.

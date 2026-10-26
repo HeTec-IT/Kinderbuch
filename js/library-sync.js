@@ -1,5 +1,8 @@
 /* Bücher aus dem Repository (Ordner library/) einmalig aufs Gerät laden.
    - library/books.json listet die Bücher; jedes Buch hat cover.jpg und p001.jpg, p002.jpg …
+   - Übersetzte Fassungen (z. B. Português) können mit "base" auf das Original-Buch verweisen:
+     "own" nennt die Seiten (1-basiert), die im eigenen Ordner liegen, alle anderen kommen aus dem
+     Ordner von "base". "ownCover": false = Titelbild vom Original.
    - Geladene Bücher liegen danach ganz normal in der lokalen Datenbank (offline lesbar).
    - Selbst gelöschte Repo-Bücher kommen nicht wieder.
    - Fehler/Offline: stilles Überspringen, nächster Start versucht es erneut. */
@@ -43,10 +46,13 @@ export async function syncRepoLibrary({ onStart, onBook } = {}) {
     try {
       if (!started) { started = true; if (onStart) onStart(); }
       const dir = BASE + e.dir + "/";
-      const coverBlob = await fetchBlob(dir + "cover.jpg");
+      const baseDir = e.base ? BASE + e.base + "/" : dir;
+      const own = Array.isArray(e.own) ? new Set(e.own) : null;
+      const coverBlob = await fetchBlob((e.base && e.ownCover === false ? baseDir : dir) + "cover.jpg");
       if (existing) await deleteBookPages(e.id);
       for (let i = 0; i < e.pages; i++) {
-        const blob = await fetchBlob(dir + "p" + String(i + 1).padStart(3, "0") + ".jpg");
+        const src = own && !own.has(i + 1) ? baseDir : dir;
+        const blob = await fetchBlob(src + "p" + String(i + 1).padStart(3, "0") + ".jpg");
         await savePage(e.id, i, blob);
       }
       const book = {
