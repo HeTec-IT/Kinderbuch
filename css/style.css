@@ -367,7 +367,7 @@ button { font: inherit; color: inherit; }
   overflow: hidden;
 }
 
-.book-sizer { position: relative; flex: none; }
+.book-sizer { position: relative; flex: none; isolation: isolate; z-index: 0; }
 .book-root { touch-action: none !important; }
 .reader .stf__parent { touch-action: none !important; }
 
@@ -385,11 +385,11 @@ button { font: inherit; color: inherit; }
 .reader-exit {
   position: absolute;
   left: 50%;
-  bottom: calc(var(--safe-bottom) + 4px);
+  bottom: calc(max(var(--safe-bottom), 28px) + 12px); /* weg vom Systemrand (iPad mit Home-Taste) */
   z-index: 25;
-  width: 72px;
-  height: 36px;
-  margin-left: -36px;
+  width: 120px;
+  height: 56px;
+  margin-left: -60px;
   padding: 0;
   border: 0;
   background: transparent;
