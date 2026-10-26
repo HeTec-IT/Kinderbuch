@@ -345,11 +345,11 @@
       "subtitle": "",
       "category": "Deutsch",
       "order": 7,
-      "rev": 2,
-      "pages": 20,
+      "rev": 3,
+      "pages": 19,
       "pageAspect": 0.6470588235294118,
       "layout": "spread",
-      "showCover": false,
+      "showCover": true,
       "pageWidth": 1553,
       "pageHeight": 2400
     }
