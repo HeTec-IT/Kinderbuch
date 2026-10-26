@@ -135,6 +135,35 @@
         20
       ],
       "ownCover": false
+    },
+    {
+      "id": "repo-lio-gemuese-abenteuer-pt",
+      "dir": "lio-gemuese-abenteuer-pt",
+      "base": "lio-gemuese-abenteuer",
+      "title": "Lio e a Aventura dos Legumes",
+      "subtitle": "",
+      "category": "Português",
+      "order": 104,
+      "rev": 1,
+      "pages": 20,
+      "pageAspect": 1,
+      "layout": "spread",
+      "showCover": false,
+      "pageWidth": 2400,
+      "pageHeight": 2400,
+      "own": [
+        2,
+        4,
+        6,
+        8,
+        10,
+        12,
+        14,
+        16,
+        18,
+        20
+      ],
+      "ownCover": false
     }
   ]
 }
