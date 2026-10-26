@@ -42,6 +42,16 @@ export async function syncRepoLibrary({ onStart, onBook } = {}) {
   for (const e of entries) {
     if (!e || !e.id || !e.pages || deleted.includes(e.id)) continue;
     const existing = await getBook(e.id);
+    // Regal („Kategorie“) aus dem Repo nachziehen, solange es auf dem Gerät nicht selbst geändert wurde
+    if (existing && existing.source === "repo") {
+      const was = existing.repoCategory || "";
+      const now = e.category || "";
+      if (now !== was && (existing.category || "") === was) {
+        existing.category = now;
+        existing.repoCategory = now;
+        try { await saveBook(existing); if (onBook) onBook(existing); } catch (_) { /* egal */ }
+      }
+    }
     if (existing && existing.repoRev === e.rev) continue;
     try {
       if (!started) { started = true; if (onStart) onStart(); }
@@ -72,6 +82,7 @@ export async function syncRepoLibrary({ onStart, onBook } = {}) {
         hasPdf: false,
         source: "repo",
         repoRev: e.rev,
+        repoCategory: existing && existing.repoCategory !== undefined ? existing.repoCategory : (e.category || ""),
         coverBlob
       };
       await saveBook(book); // erst jetzt ist das Buch „da“
