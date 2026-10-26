@@ -5,8 +5,9 @@
      Ordner von "base". "ownCover": false = Titelbild vom Original.
    - Geladene Bücher liegen danach ganz normal in der lokalen Datenbank (offline lesbar).
    - Selbst gelöschte Repo-Bücher kommen nicht wieder.
+   - "removed": [ids] in books.json entfernt Repo-Bücher auch von Geräten, die sie schon geladen haben.
    - Fehler/Offline: stilles Überspringen, nächster Start versucht es erneut. */
-import { getBook, saveBook, savePage, deleteBookPages, getSetting, setSetting, nextOrder } from "./db.js";
+import { getBook, saveBook, deleteBook, savePage, deleteBookPages, getSetting, setSetting, nextOrder } from "./db.js";
 
 const BASE = "library/";
 const DELETED_KEY = "deletedRepoBooks";
@@ -36,6 +37,13 @@ export async function syncRepoLibrary({ onStart, onBook } = {}) {
   }
   const entries = Array.isArray(manifest && manifest.books) ? manifest.books : [];
   const deleted = await getSetting(DELETED_KEY, []);
+  const removed = Array.isArray(manifest && manifest.removed) ? manifest.removed : [];
+  for (const id of removed) {
+    try {
+      const b = await getBook(id);
+      if (b && b.source === "repo") { await deleteBook(id); if (onBook) onBook(b); }
+    } catch (_) { /* egal */ }
+  }
   let added = 0;
   let started = false;
 

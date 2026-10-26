@@ -339,21 +339,6 @@
       "ownCover": true
     },
     {
-      "id": "repo-lio-feuerwehrhubschrauber",
-      "dir": "lio-feuerwehrhubschrauber",
-      "title": "Lios Abenteuer mit seinem Feuerwehrhubschrauber",
-      "subtitle": "",
-      "category": "Deutsch",
-      "order": 7,
-      "rev": 3,
-      "pages": 19,
-      "pageAspect": 0.6470588235294118,
-      "layout": "spread",
-      "showCover": true,
-      "pageWidth": 1553,
-      "pageHeight": 2400
-    },
-    {
       "id": "repo-lio-feuerwehrhubschrauber-mitmachbuch",
       "dir": "lio-feuerwehrhubschrauber-mitmachbuch",
       "title": "Lios Feuerwehrhubschrauber – Mitmachbuch",
@@ -368,5 +353,8 @@
       "pageWidth": 1673,
       "pageHeight": 2400
     }
+  ],
+  "removed": [
+    "repo-lio-feuerwehrhubschrauber"
   ]
 }
