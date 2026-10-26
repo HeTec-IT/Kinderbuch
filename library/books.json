@@ -104,6 +104,37 @@
       "showCover": false,
       "pageWidth": 2400,
       "pageHeight": 2400
+    },
+    {
+      "id": "repo-lio-spielzeit-pt",
+      "dir": "lio-spielzeit-pt",
+      "base": "lio-spielzeit",
+      "title": "Lio e a Grande Hora de Brincar",
+      "subtitle": "",
+      "category": "Português",
+      "order": 103,
+      "rev": 1,
+      "pages": 20,
+      "pageAspect": 1,
+      "layout": "spread",
+      "showCover": false,
+      "pageWidth": 2400,
+      "pageHeight": 2400,
+      "own": [
+        2,
+        4,
+        6,
+        8,
+        10,
+        12,
+        14,
+        16,
+        17,
+        18,
+        19,
+        20
+      ],
+      "ownCover": false
     }
   ]
 }
