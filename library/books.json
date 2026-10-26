@@ -337,6 +337,21 @@
         44
       ],
       "ownCover": true
+    },
+    {
+      "id": "repo-lio-feuerwehrhubschrauber",
+      "dir": "lio-feuerwehrhubschrauber",
+      "title": "Lios Abenteuer mit seinem Feuerwehrhubschrauber",
+      "subtitle": "",
+      "category": "Deutsch",
+      "order": 7,
+      "rev": 2,
+      "pages": 20,
+      "pageAspect": 0.6470588235294118,
+      "layout": "spread",
+      "showCover": false,
+      "pageWidth": 1553,
+      "pageHeight": 2400
     }
   ]
 }
