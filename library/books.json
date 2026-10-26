@@ -352,6 +352,21 @@
       "showCover": true,
       "pageWidth": 1553,
       "pageHeight": 2400
+    },
+    {
+      "id": "repo-lio-feuerwehrhubschrauber-mitmachbuch",
+      "dir": "lio-feuerwehrhubschrauber-mitmachbuch",
+      "title": "Lios Feuerwehrhubschrauber – Mitmachbuch",
+      "subtitle": "",
+      "category": "Deutsch",
+      "order": 7.5,
+      "rev": 2,
+      "pages": 10,
+      "pageAspect": 0.6969879154489459,
+      "layout": "single",
+      "showCover": true,
+      "pageWidth": 1673,
+      "pageHeight": 2400
     }
   ]
 }
